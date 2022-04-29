@@ -1,11 +1,19 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+  <v-row justify="center">
+    <v-col cols="6">
       <v-card>
-        <v-card-title>{{ state.title }}</v-card-title>
-        <v-card-text>{{ state.text }}</v-card-text>
+        <v-card-title>都道府県</v-card-title>
         <v-card-text>
-          <pre>{{ state.sampleObject }}</pre>
+          <pre>{{ prefecture.message }}</pre>
+          <pre>{{ prefecture.result }}</pre>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col cols="6">
+      <v-card>
+        <v-card-title>人口構成</v-card-title>
+        <v-card-text>
+          <pre>{{ population.result }}</pre>
         </v-card-text>
       </v-card>
     </v-col>
@@ -14,26 +22,39 @@
 
 <script lang="ts">
 import { defineComponent, reactive, useAsync } from '@nuxtjs/composition-api'
-import { SampleType, useSample } from '@/compositions/useSample'
-type State = {
-  title: string
-  text: string
-  sampleObject: SampleType | null
+import { useResas } from '~/compositions/useResas'
+
+type Prefecture = {
+  message: null | string
+  result: { prefCode: number; prefName: String }[] | null
 }
+
 export default defineComponent({
   setup() {
-    const { getSample } = useSample()
-    const state = reactive<State>({
-      title: 'タイトル',
-      text: 'テキスト',
-      sampleObject: null,
+    const { getResas } = useResas()
+
+    const prefecture = reactive<Prefecture>({
+      message: null,
+      result: null,
     })
+    const population = reactive({
+      result: null,
+    })
+
     useAsync(async () => {
-      const obj = await getSample()
-      state.sampleObject = obj
+      const { data: pref } = await getResas('prefectures')
+      prefecture.message = pref.message
+      prefecture.result = pref.result
+
+      const { data } = await getResas(
+        'population/composition/perYear?cityCode=11362&prefCode=11'
+      )
+      population.result = data.result
     })
+
     return {
-      state,
+      prefecture,
+      population,
     }
   },
 })
