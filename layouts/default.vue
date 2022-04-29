@@ -53,6 +53,11 @@ export default defineComponent({
         title: 'INDEX',
         to: '/',
       },
+      {
+        icon: 'mdi-graph',
+        title: 'CHART',
+        to: '/chart',
+      },
     ])
     return {
       state,
