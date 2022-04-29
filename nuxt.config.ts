@@ -35,7 +35,7 @@ const nuxtConfig: NuxtConfig = {
   ],
 
   publicRuntimeConfig: {
-    RESAS_API_KEY: process.env.RESAS_API_KEY,
+    RESAS_API_KEY: process.env.RESAS_API_KEY || 'dummy_key',
   },
 
   modules: ['@nuxtjs/axios'],

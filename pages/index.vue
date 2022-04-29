@@ -3,6 +3,7 @@
     <v-col cols="6">
       <v-card>
         <v-card-title>都道府県</v-card-title>
+        <v-card-title>{{ key.id }}</v-card-title>
         <v-card-text>
           <pre>{{ prefecture.message }}</pre>
           <pre>{{ prefecture.result }}</pre>
@@ -21,7 +22,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useAsync } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  reactive,
+  useAsync,
+  useContext,
+} from '@nuxtjs/composition-api'
 import { useResas } from '~/compositions/useResas'
 
 type Prefecture = {
@@ -32,6 +38,7 @@ type Prefecture = {
 export default defineComponent({
   setup() {
     const { getResas } = useResas()
+    const { $config } = useContext()
 
     const prefecture = reactive<Prefecture>({
       message: null,
@@ -39,6 +46,9 @@ export default defineComponent({
     })
     const population = reactive({
       result: null,
+    })
+    const key = reactive({
+      id: null,
     })
 
     useAsync(async () => {
@@ -50,11 +60,14 @@ export default defineComponent({
         'population/composition/perYear?cityCode=11362&prefCode=11'
       )
       population.result = data.result
+
+      key.id = $config.RESAS_API_KEY
     })
 
     return {
       prefecture,
       population,
+      key,
     }
   },
 })
