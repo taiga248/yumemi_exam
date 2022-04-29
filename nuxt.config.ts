@@ -5,8 +5,8 @@ const nuxtConfig: NuxtConfig = {
   ssr: false,
   target: 'static',
   head: {
-    titleTemplate: '%s - sample',
-    title: 'sample',
+    // titleTemplate: '%s - YUMEMI',
+    title: 'YUMEMI EXAM',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -20,7 +20,13 @@ const nuxtConfig: NuxtConfig = {
   },
 
   css: [],
-  plugins: ['@/plugins/axios-accessor'],
+  plugins: [
+    '@/plugins/axios-accessor',
+    {
+      src: '@/plugins/highcharts-vue',
+      mode: 'client',
+    },
+  ],
   components: true,
   buildModules: [
     '@nuxt/typescript-build',
