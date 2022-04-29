@@ -5,8 +5,8 @@ const nuxtConfig: NuxtConfig = {
   ssr: false,
   target: 'static',
   head: {
-    titleTemplate: '%s - sample',
-    title: 'sample',
+    // titleTemplate: '%s - YUMEMI',
+    title: 'YUMEMI EXAM',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -20,13 +20,23 @@ const nuxtConfig: NuxtConfig = {
   },
 
   css: [],
-  plugins: [],
+  plugins: [
+    '@/plugins/axios-accessor',
+    {
+      src: '@/plugins/highcharts-vue',
+      mode: 'client',
+    },
+  ],
   components: true,
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
     '@nuxtjs/composition-api/module',
   ],
+
+  publicRuntimeConfig: {
+    RESAS_API_KEY: process.env.RESAS_API_KEY || '',
+  },
 
   modules: ['@nuxtjs/axios'],
 
@@ -36,9 +46,9 @@ const nuxtConfig: NuxtConfig = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
-        dark: {
+        light: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
