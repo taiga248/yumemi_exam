@@ -11,7 +11,7 @@
     </v-col>
     <v-col cols="6">
       <v-card>
-        <v-card-title>人口構成</v-card-title>
+        <v-card-title>人口構成 -東京-</v-card-title>
         <v-card-text>
           <pre>{{ population.result }}</pre>
         </v-card-text>
@@ -47,7 +47,7 @@ export default defineComponent({
       prefecture.result = pref.result
 
       const { data } = await getResas(
-        'population/composition/perYear?cityCode=11362&prefCode=11'
+        'population/composition/perYear?prefCode=13'
       )
       population.result = data.result
     })
