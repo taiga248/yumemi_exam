@@ -19,7 +19,7 @@
       <v-col cols="12">
         <v-card v-if="state.selected.length">
           <v-card-text>
-            <Highcharts
+            <ChartComponent
               :chart-title="chartState.chartTitle"
               :axis="chartState.axis"
               :series="chartState.series"
@@ -49,7 +49,7 @@ import {
   Population,
   Series,
 } from '~/compositions/useResas'
-import Highcharts from '@/components/Highcharts.vue'
+import ChartComponent from '~/components/ChartComponent.vue'
 
 type State = {
   selected: Prefecture[]
@@ -66,7 +66,7 @@ type PrefectureState = {
 
 export default defineComponent({
   components: {
-    Highcharts,
+    ChartComponent,
   },
 
   setup() {
@@ -108,7 +108,6 @@ export default defineComponent({
         })
         chartState.axis.x.categories = _year
       })
-
       chartState.series = _series
     })
 
