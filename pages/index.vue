@@ -22,18 +22,18 @@
 
 <script lang="ts">
 import { defineComponent, reactive, useAsync } from '@nuxtjs/composition-api'
-import { useResas } from '~/compositions/useResas'
+import { useResas, Prefecture } from '~/compositions/useResas'
 
-type Prefecture = {
+type PrefectureState = {
   message: null | string
-  result: { prefCode: number; prefName: String }[] | null
+  result: Prefecture[] | null
 }
 
 export default defineComponent({
   setup() {
     const { getResas } = useResas()
 
-    const prefecture = reactive<Prefecture>({
+    const prefecture = reactive<PrefectureState>({
       message: null,
       result: null,
     })
