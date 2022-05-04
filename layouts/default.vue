@@ -50,7 +50,7 @@ export default defineComponent({
     const items = ref<Item[]>([
       {
         icon: 'mdi-apps',
-        title: 'INDEX',
+        title: 'PREFS',
         to: '/',
       },
       {
